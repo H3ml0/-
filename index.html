@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Здоровое питание – Ваш путь к здоровой жизни</title>
+
+    <!-- Шрифты -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@300;400;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- ВСЯ СТИЛИЗАЦИЯ В ОДНОМ МЕСТЕ -->
+    <style>
+        /* ========== 1. RESET & VARIABLES ========== */
+        *{margin:0;padding:0;box-sizing:border-box}
+        :root{
+            --primary:#2D5A27;
+            --secondary:#E67E22;
+            --accent:#27AE60;
+            --bg:#F8F9FA;
+            --text:#2C3E50;
+            --light:#ECF0F1;
+            --white:#FFFFFF;
+            --shadow:0 4px 6px rgba(0,0,0,.1);
+            --shadow-h:0 8px 15px rgba(0,0,0,.2)
+        }
+        body{
+            font-family:'Open Sans',sans-serif;
+            line-height:1.6;
+            color:var(--text);
+            background:var(--bg);
+            overflow-x:hidden
+        }
+        .container{max-width:1200px;margin:0 auto;padding:0 20px}
+
+        /* ========== 2. NAVIGATION ========== */
+        .navbar{
+            position:fixed;top:0;width:100%;
+            background:var(--white);box-shadow:var(--shadow);z-index:1000
+        }
+        .navbar .container{
+            display:flex;justify-content:space-between;align-items:center;
+            padding:1rem 20px
+        }
+        .nav-brand h2{
+            font-family:'Montserrat',sans-serif;
+            font-weight:700;color:var(--primary)
+        }
+        .nav-menu{
+            display:flex;list-style:none;gap:2rem
+        }
+        .nav-menu a{
+            text-decoration:none;color:var(--text);font-weight:500;
+            position:relative;transition:color .3s
+        }
+        .nav-menu a:hover{color:var(--accent)}
+        .nav-menu a::after{
+            content:'';position:absolute;bottom:-5px;left:0;
+            width:0;height:2px;background:var(--accent);transition:.3s
+        }
+        .nav-menu a:hover::after{width:100%}
+        .hamburger{
+            display:none;flex-direction:column;cursor:pointer;gap:4px
+        }
+        .hamburger span{
+            width:25px;height:3px;background:var(--text);transition:.3s
+        }
+
+        /* ========== 3. HERO ========== */
+        .hero{
+            min-height:100vh;display:flex;align-items:center;
+            padding:100px 0 50px;
+            background:linear-gradient(135deg,var(--bg) 0%,#E8F5E8 100%);
+            position:relative;overflow:hidden
+        }
+        .hero::before{ /* лёгкая текстура */
+            content:'';position:absolute;inset:0;
+            background:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="g" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="%2327AE60" opacity=".1"/><circle cx="75" cy="75" r="1" fill="%23E67E22" opacity=".1"/></pattern></defs><rect width="100" height="100" fill="url(%23g)"/></svg>');
+            opacity:.3;z-index:1
+        }
+        .hero-content{flex:1;max-width:50%;z-index:2}
+        .hero-image{flex:1;max-width:50%;z-index:2}
+        .hero-image img{
+            width:100%;height:400px;object-fit:cover;
+            border-radius:20px;box-shadow:var(--shadow-h)
+        }
+        .hero-title{
+            font-family:'Playfair Display',serif;font-size:3.5rem;
+            font-weight:700;color:var(--primary);margin-bottom:1rem;
+            animation:fadeInUp 1s
+        }
+        .hero-subtitle{
+            font-size:1.5rem;color:var(--secondary);margin-bottom:1.5rem;
+            animation:fadeInUp 1s .2s both
+        }
+        .hero-description{
+            font-size:1.1rem;margin-bottom:2rem;line-height:1.8;
+            animation:fadeInUp 1s .4s both
+        }
+        .cta-button{
+            background:linear-gradient(135deg,var(--accent),var(--secondary));
+            color:var(--white);border:none;padding:15px 30px;
+            font-size:1.1rem;font-weight:600;border-radius:50px;
+            cursor:pointer;box-shadow:var(--shadow);transition:.3s;
+            animation:fadeInUp 1s .6s both
+        }
+        .cta-button:hover{transform:translateY(-2px);box-shadow:var(--shadow-h)}
+
+        /* ========== 4. SECTIONS ========== */
+        section{padding:80px 0}
+        .section-title{
+            font-family:'Montserrat',sans-serif;font-size:2.5rem;
+            font-weight:700;text-align:center;margin-bottom:3rem;
+            color:var(--primary);position:relative
+        }
+        .section-title::after{
+            content:'';position:absolute;bottom:-10px;left:50%;
+            transform:translateX(-50%);width:80px;height:4px;
+            background:linear-gradient(90deg,var(--accent),var(--secondary));
+            border-radius:2px
+        }
+
+        /* Принципы */
+        .principles-grid{
+            display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+            gap:2rem;margin-top:3rem
+        }
+        .principle-card{
+            background:var(--white);padding:2rem;border-radius:15px;
+            box-shadow:var(--shadow);text-align:center;transition:.3s;
+            border:2px solid transparent
+        }
+        .principle-card:hover{
+            transform:translateY(-5px);box-shadow:var(--shadow-h);
+            border-color:var(--accent)
+        }
+        .principle-icon{font-size:3rem;margin-bottom:1rem}
+        .principle-card h3{
+            font-family:'Montserrat',sans-serif;font-size:1.3rem;
+            color:var(--primary);margin-bottom:1rem
+        }
+        .principle-card p{color:#666;line-height:1.6}
+
+        /* Калькулятор */
+        .calculator-section{background:var(--white)}
+        .calculator-container{
+            display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-top:2rem
+        }
+        .calculator-form,.calculator-results{
+            background:var(--bg);padding:2rem;border-radius:15px;
+            box-shadow:var(--shadow)
+        }
+        .form-group{margin-bottom:1.5rem}
+        .form-group label{
+            display:block;margin-bottom:.5rem;font-weight:600;color:var(--primary)
+        }
+        .form-group input,.form-group select{
+            width:100%;padding:12px 15px;border:2px solid var(--light);
+            border-radius:8px;font-size:1rem;transition:border-color .3s
+        }
+        .form-group input:focus,.form-group select:focus{
+            outline:none;border-color:var(--accent)
+        }
+        .calculate-btn{
+            background:linear-gradient(135deg,var(--primary),var(--accent));
+            color:var(--white);border:none;padding:15px 30px;
+            font-size:1.1rem;font-weight:600;border-radius:8px;
+            cursor:pointer;width:100%;transition:.3s
+        }
+        .calculate-btn:hover{transform:translateY(-2px);box-shadow:var(--shadow-h)}
+        .result-card{
+            text-align:center;margin-bottom:2rem;padding:2rem;
+            background:linear-gradient(135deg,var(--accent),var(--secondary));
+            border-radius:15px;color:var(--white)
+        }
+        .result-value{font-size:3rem;font-weight:700;margin-bottom:.5rem}
+        .result-unit{font-size:1.1rem;opacity:.9}
+        .macro-item{display:flex;align-items:center;margin-bottom:1rem;gap:1rem}
+        .macro-label{min-width:80px;font-weight:600}
+        .macro-bar{flex:1;height:20px;background:var(--light);border-radius:10px;overflow:hidden}
+        .macro-fill{height:100%;border-radius:10px;transition:width .5s}
+        .protein{background:var(--accent)}
+        .fat{background:var(--secondary)}
+        .carbs{background:var(--primary)}
+        .macro-value{min-width:50px;text-align:right;font-weight:600;color:var(--primary)}
+
+        /* Рецепты */
+        .recipes-section{background:var(--bg)}
+        .recipe-filters{
+            display:flex;justify-content:center;gap:1rem;margin-bottom:2rem;flex-wrap:wrap
+        }
+        .filter-btn{
+            background:var(--white);border:2px solid var(--light);
+            color:var(--text);padding:10px 20px;border-radius:25px;
+            cursor:pointer;transition:.3s;font-weight:500
+        }
+        .filter-btn.active,.filter-btn:hover{
+            background:var(--accent);color:var(--white);border-color:var(--accent)
+        }
+        .recipes-grid{
+            display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+            gap:2rem;margin-top:2rem
+        }
+        .recipe-card{
+            background:var(--white);border-radius:15px;overflow:hidden;
+            box-shadow:var(--shadow);transition:.3s;opacity:1;transform:scale(1)
+        }
+        .recipe-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-h)}
+        .recipe-card.hidden{opacity:0;transform:scale(.8);pointer-events:none}
+        .recipe-image{width:100%;height:200px;object-fit:cover}
+        .recipe-content{padding:1.5rem}
+        .recipe-title{
+            font-family:'Montserrat',sans-serif;font-size:1.2rem;
+            color:var(--primary);margin-bottom:.5rem
+        }
+        .recipe-description{color:#666;margin-bottom:1rem;line-height:1.5}
+        .recipe-meta{
+            display:flex;justify-content:space-between;align-items:center;
+            margin-top:1rem;padding-top:1rem;border-top:1px solid var(--light);
+            font-size:.9rem;color:#666
+        }
+
+        /* Советы-карусель */
+        .tips-section{background:var(--white)}
+        .tips-carousel{position:relative;max-width:600px;margin:0 auto;height:300px}
+        .tip-card{
+            position:absolute;top:0;left:0;width:100%;height:100%;
+            background:linear-gradient(135deg,var(--bg),var(--white));
+            border-radius:15px;padding:2rem;text-align:center;box-shadow:var(--shadow);
+            opacity:0;transform:translateX(100%);transition:.5s;
+            display:flex;flex-direction:column;justify-content:center
+        }
+        .tip-card.active{opacity:1;transform:translateX(0)}
+        .tip-card.prev{transform:translateX(-100%)}
+        .tip-icon{font-size:3rem;margin-bottom:1rem}
+        .tip-card h3{
+            font-family:'Montserrat',sans-serif;color:var(--primary);
+            margin-bottom:1rem;font-size:1.5rem
+        }
+        .tip-card p{color:#666;line-height:1.6;font-size:1.1rem}
+        .carousel-controls{
+            display:flex;justify-content:center;align-items:center;gap:2rem;margin-top:2rem
+        }
+        .carousel-btn{
+            background:var(--accent);color:var(--white);border:none;
+            width:40px;height:40px;border-radius:50%;cursor:pointer;
+            font-size:1.5rem;transition:.3s
+        }
+        .carousel-btn:hover{background:var(--primary);transform:scale(1.1)}
+        .carousel-indicators{display:flex;gap:.5rem}
+        .indicator{
+            width:12px;height:12px;border-radius:50%;background:var(--light);
+            cursor:pointer;transition:.3s
+        }
+        .indicator.active{background:var(--accent);transform:scale(1.2)}
+
+        /* Трекер привычек */
+        .habits-section{background:var(--bg)}
+        .habits-container{max-width:800px;margin:0 auto}
+        .habit-item{
+            background:var(--white);padding:1.5rem;border-radius:15px;
+            margin-bottom:1rem;box-shadow:var(--shadow);
+            display:flex;align-items:center;justify-content:space-between;transition:.3s
+        }
+        .habit-item:hover{box-shadow:var(--shadow-h)}
+        .habit-label{display:flex;align-items:center;cursor:pointer;font-size:1.1rem;flex:1}
+        .habit-checkbox{display:none}
+        .checkmark{
+            width:20px;height:20px;border:2px solid var(--light);
+            border-radius:4px;margin-right:1rem;position:relative;transition:.3s
+        }
+        .habit-checkbox:checked + .checkmark{background:var(--accent);border-color:var(--accent)}
+        .habit-checkbox:checked + .checkmark::after{
+            content:'✓';position:absolute;top:50%;left:50%;
+            transform:translate(-50%,-50%);color:var(--white);
+            font-size:14px;font-weight:bold
+        }
+        .habit-progress{display:flex;align-items:center;gap:1rem;min-width:200px}
+        .progress-bar{flex:1;height:8px;background:var(--light);border-radius:4px;overflow:hidden}
+        .progress-fill{height:100%;background:var(--accent);border-radius:4px;transition:width .3s;width:0}
+        .progress-text{font-weight:600;color:var(--primary);min-width:60px;text-align:right}
+        .overall-progress{
+            text-align:center;margin-top:3rem;padding:2rem;
+            background:var(--white);border-radius:15px;box-shadow:var(--shadow)
+        }
+        .overall-progress h3{
+            font-family:'Montserrat',sans-serif;color:var(--primary);margin-bottom:1.5rem
+        }
+        .progress-circle{position:relative;display:inline-block}
+        .progress-ring{transform:rotate(-90deg)}
+        .progress-ring-circle{
+            fill:none;stroke:var(--light);stroke-width:8
+        }
+        .progress-ring-fill{
+            fill:none;stroke:var(--accent);stroke-width:8;stroke-linecap:round;
+            stroke-dasharray:314;stroke-dashoffset:314;transition:stroke-dashoffset .5s
+        }
+        .progress-percentage{
+            position:absolute;top:50%;left:50%;
+            transform:translate(-50%,-50%);font-size:1.5rem;
+            font-weight:700;color:var(--primary)
+        }
+
+        /* Подвал */
+        .footer{
+            background:var(--primary);color:var(--white);
+            padding:3rem 0 1rem
+        }
+        .footer-content{
+            display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+            gap:2rem;margin-bottom:2rem
+        }
+        .footer-section h3,.footer-section h4{margin-bottom:1rem;font-family:'Montserrat',sans-serif}
+        .footer-section ul{list-style:none}
+        .footer-section ul li{margin-bottom:.5rem}
+        .footer-section a{color:var(--white);text-decoration:none;transition:opacity .3s}
+        .footer-section a:hover{opacity:.8}
+        .social-links{display:flex;gap:1rem;margin-top:1rem}
+        .social-links a{font-size:1.5rem;transition:transform .3s}
+        .social-links a:hover{transform:scale(1.2)}
+        .footer-bottom{text-align:center;padding-top:2rem;border-top:1px solid rgba(255,255,255,.2)}
+
+        /* Анимации */
+        @keyframes fadeInUp{
+            from{opacity:0;transform:translateY(30px)}
+            to{opacity:1;transform:translateY(0)}
+        }
+        @keyframes fadeInRight{
+            from{opacity:0;transform:translateX(30px)}
+            to{opacity:1;transform:translateX(0)}
+        }
+
+        /* Адаптивность */
+        @media(max-width:768px){
+            .nav-menu{display:none}
+            .hamburger{display:flex}
+            .hero{flex-direction:column;text-align:center;padding:120px 20px 50px}
+            .hero-content,.hero-image{max-width:100%}
+            .hero-title{font-size:2.5rem}
+            .hero-subtitle{font-size:1.2rem}
+            .calculator-container{grid-template-columns:1fr;gap:2rem}
+            .principles-grid,.recipes-grid{grid-template-columns:1fr}
+            .recipe-filters{flex-direction:column;align-items:center}
+            .habit-item{flex-direction:column;align-items:flex-start;gap:1rem}
+            .habit-progress{width:100%}
+            .carousel-controls{flex-direction:column;gap:1rem}
+            .footer-content{grid-template-columns:1fr;text-align:center}
+        }
+        @media(max-width:480px){
+            .hero-title{font-size:2rem}
+            .section-title{font-size:2rem}
+            .container{padding:0 15px}
+            .principle-card,.calculator-form,.calculator-results,.recipe-card,.tip-card,.habit-item{padding:1.5rem}
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Навигация -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand"><h2>🥗 HealthyLife</h2></div>
+            <ul class="nav-menu">
+                <li><a href="#home">Главная</a></li>
+                <li><a href="#principles">Принципы</a></li>
+                <li><a href="#calculator">Калькулятор</a></li>
+                <li><a href="#recipes">Рецепты</a></li>
+                <li><a href="#tips">Советы</a></li>
+            </ul>
+            <div class="hamburger"><span></span><span></span><span></span></div>
+        </div>
+    </nav>
+
+    <!-- Главный экран -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Здоровое питание</h1>
+            <p class="hero-subtitle">Ваш путь к энергии, красоте и долголетию</p>
+            <p class="hero-description">
+                Откройте для себя мир правильного питания. Получите персональные рекомендации, попробуйте вкусные рецепты и начните свой путь к здоровой жизни уже сегодня.
+            </p>
+            <button class="cta-button" onclick="scrollToSection('calculator')">Начать путешествие</button>
+        </div>
+        <div class="hero-image">
+            <img src="https://kimi-web-img.moonshot.cn/img/www.heart.org/15fc7751888a5559402470b03278116334985285.jpg" alt="Свежие овощи и фрукты">
+        </div>
+    </section>
+
+    <!-- Принципы -->
+    <section id="principles" class="principles">
+        <div class="container">
+            <h2 class="section-title">Основные принципы</h2>
+            <div class="principles-grid">
+                <div class="principle-card">
+                    <div class="principle-icon">🥬</div>
+                    <h3>Разнообразие</h3>
+                    <p>Включайте в рацион различные овощи, фрукты, белки и цельные зерна для получения всех необходимых nutrients.</p>
+                </div>
+                <div class="principle-card">
+                    <div class="principle-icon">💧</div>
+                    <h3>Водный баланс</h3>
+                    <p>Пейте не менее 8 стаканов воды в день для поддержания оптимального здоровья и метаболизма.</p>
+                </div>
+                <div class="principle-card">
+                    <div class="principle-icon">⏰</div>
+                    <h3>Регулярность</h3>
+                    <p>Питайтесь небольшими порциями 4-5 раз в день для поддержания стабильного уровня энергии.</p>
+                </div>
+                <div class="principle-card">
+                    <div class="principle-icon">🧘</div>
+                    <h3>Осознанность</h3>
+                    <p>Ешьте медленно, наслаждаясь каждым укусом и прислушиваясь к сигналам голода вашего организма.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Калькулятор калорий -->
+    <section id="calculator" class="calculator-section">
+        <div class="container">
+            <h2 class="section-title">Калькулятор калорий</h2>
+            <div class="calculator-container">
+                <div class="calculator-form">
+                    <div class="form-group">
+                        <label for="age">Возраст (лет)</label>
+                        <input type="number" id="age" min="18" max="100" placeholder="25">
+                    </div>
+                    <div class="form-group">
+                        <label for="gender">Пол</label>
+                        <select id="gender">
+                            <option value="male">Мужчина</option>
+                            <option value="female">Женщина</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="weight">Вес (кг)</label>
+                        <input type="number" id="weight" min="40" max="200" placeholder="70">
+                    </div>
+                    <div class="form-group">
+                        <label for="height">Рост (см)</label>
+                        <input type="number" id="height" min="140" max="220" placeholder="170">
+                    </div>
+                    <div class="form-group">
+                        <label for="activity">Уровень активности</label>
+                        <select id="activity">
+                            <option value="1.2">Сидячий образ жизни</option>
+                            <option value="1.375">Легкая активность (1-3 дня/неделю)</option>
+                            <option value="1.55">Умеренная активность (3-5 дней/неделю)</option>
+                            <option value="1.725">Высокая активность (6-7 дней/неделю)</option>
+                            <option value="1.9">Очень высокая активность</option>
+                        </select>
+                    </div>
+                    <button class="calculate-btn" onclick="calculateCalories()">Рассчитать калории</button>
+                </div>
+
+                <div class="calculator-results" id="results">
+                    <div class="result-card">
+                        <h3>Ваша суточная норма калорий</h3>
+                        <div class="result-value" id="calories">0</div>
+                        <span class="result-unit">ккал/день</span>
+                    </div>
+                    <div class="macro-breakdown">
+                        <h4>Соотношение БЖУ:</h4>
+                        <div class="macro-item">
+                            <span class="macro-label">Белки</span>
+                            <div class="macro-bar"><div class="macro-fill protein" id="protein-bar"></div></div>
+                            <span class="macro-value" id="protein-value">0г</span>
+                        </div>
+                        <div class="macro-item">
+                            <span class="macro-label">Жиры</span>
+                            <div class="macro-bar"><div class="macro-fill fat" id="fat-bar"></div></div>
+                            <span class="macro-value" id="fat-value">0г</span>
+                        </div>
+                        <div class="macro-item">
+                            <span class="macro-label">Углеводы</span>
+                            <div class="macro-bar"><div class="macro-fill carbs" id="carbs-bar"></div></div>
+                            <span class="macro-value" id="carbs-value">0г</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Рецепты -->
+    <section id="recipes" class="recipes-section">
+        <div class="container">
+            <h2 class="section-title">Здоровые рецепты</h2>
+            <div class="recipe-filters">
+                <button class="filter-btn active" data-filter="all">Все</button>
+                <button class="filter-btn" data-filter="breakfast">Завтрак</button>
+                <button class="filter-btn" data-filter="lunch">Обед</button>
+                <button class="filter-btn" data-filter="dinner">Ужин</button>
+                <button class="filter-btn" data-filter="snack">Перекус</button>
+            </div>
+            <div class="recipes-grid" id="recipes-grid"></div>
+        </div>
+    </section>
+
+    <!-- Советы -->
+    <section id="tips" class="tips-section">
+        <div class="container">
+            <h2 class="section-title">Полезные советы</h2>
+            <div class="tips-carousel">
+                <div class="tip-card active" data-tip="0">
+                    <div class="tip-icon">💧</div>
+                    <h3>Пейте больше воды</h3>
+                    <p>Начинайте каждый день со стакана воды. Это запускает метаболизм и помогает организму проснуться.</p>
+                </div>
+                <div class="tip-card" data-tip="1">
+                    <div class="tip-icon">🥗</div>
+                    <h3>Ешьте больше овощей</h3>
+                    <p>Стремитесь к 5 порциям овощей и фруктов в день. Разнообразие цветов = разнообразие nutrients.</p>
+                </div>
+                <div class="tip-card" data-tip="2">
+                    <div class="tip-icon">⏰</div>
+                    <h3>Не пропускайте завтрак</h3>
+                    <p>Завтрак — самый важный приём пищи. Он даёт энергию на весь день и предотвращает переедание.</p>
+                </div>
+                <div class="tip-card" data-tip="3">
+                    <div class="tip-icon">🧘</div>
+                    <h3>Ешьте осознанно</h3>
+                    <p>Отвлекитесь от экранов, наслаждайтесь вкусом и текстурой пищи. Это помогает лучше усваиваться.</p>
+                </div>
+                <div class="tip-card" data-tip="4">
+                    <div class="tip-icon">🍽️</div>
+                    <h3>Контролируйте порции</h3>
+                    <p>Используйте меньшие тарелки, не ешьте из упаковки. Ваш желудок сообщит о сытости через 20 минут.</p>
+                </div>
+            </div>
+            <div class="carousel-controls">
+                <button class="carousel-btn prev" onclick="changeTip(-1)">‹</button>
+                <div class="carousel-indicators">
+                    <span class="indicator active" onclick="showTip(0)"></span>
+                    <span class="indicator" onclick="showTip(1)"></span>
+                    <span class="indicator" onclick="showTip(2)"></span>
+                    <span class="indicator" onclick="showTip(3)"></span>
+                    <span class="indicator" onclick="showTip(4)"></span>
+                </div>
+                <button class="carousel-btn next" onclick="changeTip(1)">›</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Трекер привычек -->
+    <section class="habits-section">
+        <div class="container">
+            <h2 class="section-title">Трекер здоровых привычек</h2>
+            <div class="habits-container">
+                <div class="habit-item">
+                    <label class="habit-label">
+                        <input type="checkbox" class="habit-checkbox" data-habit="water">
+                        <span class="checkmark"></span>
+                        Выпил(а) 8 стаканов воды
+                    </label>
+                    <div class="habit-progress">
+                        <div class="progress-bar"><div class="progress-fill" id="water-progress"></div></div>
+                        <span class="progress-text" id="water-text">0/8</span>
+                    </div>
+                </div>
+                <div class="habit-item">
+                    <label class="habit-label">
+                        <input type="checkbox" class="habit-checkbox" data-habit="vegetables">
+                        <span class="checkmark"></span>
+                        Съел(а) 5 порций овощей/фруктов
+                    </label>
+                    <div class="habit-progress">
+                        <div class="progress-bar"><div class="progress-fill" id="vegetables-progress"></div></div>
+                        <span class="progress-text" id="vegetables-text">0/5</span>
+                    </div>
+                </div>
+                <div class="habit-item">
+                    <label class="habit-label">
+                        <input type="checkbox" class="habit-checkbox" data-habit="exercise">
+                        <span class="checkmark"></span>
+                        Занялся(лась) физической активностью
+                    </label>
+                    <div class="habit-progress">
+                        <div class="progress-bar"><div class="progress-fill" id="exercise-progress"></div></div>
+                        <span class="progress-text" id="exercise-text">0/30 мин</span>
+                    </div>
+                </div>
+                <div class="habit-item">
+                    <label class="habit-label">
+                        <input type="checkbox" class="habit-checkbox" data-habit="sleep">
+                        <span class="checkmark"></span>
+                        Выспался(лась) 7-8 часов
+                    </label>
+                    <div class="habit-progress">
+                        <div class="progress-bar"><div class="progress-fill" id="sleep-progress"></div></div>
+                        <span class="progress-text" id="sleep-text">0/8 ч</span>
+                    </div>
+                </div>
+                <div class="habit-item">
+                    <label class="habit-label">
+                        <input type="checkbox" class="habit-checkbox" data-habit="mindful">
+                        <span class="checkmark"></span>
+                        Питался(лась) осознанно
+                    </label>
+                    <div class="habit-progress">
+                        <div class="progress-bar"><div class="progress-fill" id="mindful-progress"></div></div>
+                        <span class="progress-text" id="mindful-text">0/3 раза</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="overall-progress">
+                <h3>Общий прогресс дня</h3>
+                <div class="progress-circle">
+                    <svg class="progress-ring" width="120" height="120">
+                        <circle class="progress-ring-circle" cx="60" cy="60" r="50"></circle>
+                        <circle class="progress-ring-fill" cx="60" cy="60" r="50" id="overall-progress-fill"></circle>
+                    </svg>
+                    <div class="progress-percentage" id="overall-percentage">0%</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Подвал -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>🥗 HealthyLife</h3>
+                    <p>Ваш надёжный путеводитель в мире здорового питания и образа жизни.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Быстрые ссылки</h4>
+                    <ul>
+                        <li><a href="#home">Главная</a></li>
+                        <li><a href="#principles">Принципы</a></li>
+                        <li><a href="#calculator">Калькулятор</a></li>
+                        <li><a href="#recipes">Рецепты</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Полезные ресурсы</h4>
+                    <ul>
+                        <li><a href="#">Блог о здоровье</a></li>
+                        <li><a href="#">Книги о питании</a></li>
+                        <li><a href="#">Приложения</a></li>
+                        <li><a href="#">Консультации</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Свяжитесь с нами</h4>
+                    <p>Email: info@healthylife.ru</p>
+                    <p>Телефон: +7 (999) 123-45-67</p>
+                    <div class="social-links">
+                        <a href="#">📘</a>
+                        <a href="#">📷</a>
+                        <a href="#">🐦</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 HealthyLife. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== СКРИПТЫ (без изменений) ========== -->
+    <script>
+        // ---------- ДАННЫЕ РЕЦЕПТОВ ----------
+        const recipes = [
+            {id:1,title:"Авокадо-тост с яйцом",description:"Питательный завтрак с полезными жирами и белками",image:"https://kimi-web-img.moonshot.cn/img/www.vitacup.com/97cfca445aaea6e9f9bd493d72291430a439c614.JPG",category:"breakfast",time:"10 мин",calories:"320 ккал"},
+            {id:2,title:"Салат с киноа и овощами",description:"Лёгкий обед с полным набором аминокислот",image:"https://kimi-web-img.moonshot.cn/img/greenhealthycooking.com/4db9253d8c87dec7af1d7d0a454b8c72c6235fe7.jpg",category:"lunch",time:"15 мин",calories:"380 ккал"},
+            {id:3,title:"Лосось на гриле",description:"Ужин с омега-3 и овощами",image:"https://kimi-web-img.moonshot.cn/img/www.eatingwell.com/ff56686f339e7fe8586e6db1838c552bbf34efa2.jpg",category:"dinner",time:"25 мин",calories:"450 ккал"},
+            {id:4,title:"Ягодный боул",description:"Полезный перекус с антиоксидантами",image:"https://kimi-web-img.moonshot.cn/img/images.squarespace-cdn.com/5ac289b240b86b65507bba30ee7f69afa036bb0d.JPG",category:"snack",time:"5 мин",calories:"180 ккал"},
+            {id:5,title:"Овсянка с фруктами",description:"Классический завтрак с клетчаткой",image:"https://kimi-web-img.moonshot.cn/img/thumbs.dreamstime.com/5b0de7476509f5f34d4ee8bbabd626cd355d89ed.jpg",category:"breakfast",time:"8 мин",calories:"280 ккал"},
+            {id:6,title:"Мисо-суп",description:"Лёгкий обед с пробиотиками",image:"https://kimi-web-img.moonshot.cn/img/i0.wp.com/59e0ea0fcf5b4a395aef078f23a8e89f0ec7f219.jpg",category:"lunch",time:"12 мин",calories:"220 ккал"},
+            {id:7,title:"Куриная грудка",description:"Постный ужин с высоким содержанием белка",image:"https://kimi-web-img.moonshot.cn/img/bliibgsund.ch/0d3220e5b3d4d351eb2bce6a1ae25caa8b039714.jpg",category:"dinner",time:"20 мин",calories:"350 ккал"},
+            {id:8,title:"Греческий йогурт",description:"Простой перекус с пробиотиками",image:"https://kimi-web-img.moonshot.cn/img/eatmoreart.org/08af64fc3040d19eab2160236d7ff95bb3ea6ddd.jpg",category:"snack",time:"2 мин",calories:"120 ккал"},
+            {id:9,title:"Зелёный смузи",description:"Энергетический завтрак с витаминами",image:"https://kimi-web-img.moonshot.cn/img/thumbs.dreamstime.com/e58332c3e01aaf36bf0f929cb9f712f7a314e5b5.jpg",category:"breakfast",time:"5 мин",calories:"250 ккал"}
+        ];
+
+        // ---------- ТРЕКЕР ПРИВЫЧЕК ----------
+        let habitProgress = {water:0,vegetables:0,exercise:0,sleep:0,mindful:0};
+        const habitTargets = {water:8,vegetables:5,exercise:30,sleep:8,mindful:3};
+
+        // ---------- ИНИЦИАЛИЗАЦИЯ ----------
+        document.addEventListener('DOMContentLoaded', ()=>{
+            initializeRecipes();
+            initializeHabits();
+            initializeCarousel();
+            initializeNavigation();
+            loadHabitData();
+            setTimeout(initScrollAnimations,100);
+        });
+
+        // ---------- НАВИГАЦИЯ ----------
+        function initializeNavigation(){
+            const links = document.querySelectorAll('.nav-menu a');
+            const hamburger = document.querySelector('.hamburger');
+            const menu = document.querySelector('.nav-menu');
+            links.forEach(l=>l.addEventListener('click',e=>{
+                e.preventDefault();
+                const id = l.getAttribute('href').slice(1);
+                document.getElementById(id)?.scrollIntoView({behavior:'smooth'});
+            }));
+            hamburger.addEventListener('click',()=>menu.classList.toggle('active'));
+        }
+        function scrollToSection(id){document.getElementById(id)?.scrollIntoView({behavior:'smooth'});}
+
+        // ---------- КАЛЬКУЛЯТОР ----------
+        function calculateCalories(){
+            const age = parseInt(document.getElementById('age').value);
+            const gender = document.getElementById('gender').value;
+            const weight = parseFloat(document.getElementById('weight').value);
+            const height = parseFloat(document.getElementById('height').value);
+            const activity = parseFloat(document.getElementById('activity').value);
+            if(!age||!weight||!height){alert('Заполните все поля');return;}
+            let bmr = gender==='male'
+                ? 10*weight + 6.25*height - 5*age + 5
+                : 10*weight + 6.25*height - 5*age - 161;
+            const calories = Math.round(bmr*activity);
+            const protein = Math.round(calories*.3/4);
+            const fat = Math.round(calories*.3/9);
+            const carbs = Math.round(calories*.4/4);
+            document.getElementById('calories').textContent=calories;
+            document.getElementById('protein-value').textContent=protein+'г';
+            document.getElementById('fat-value').textContent=fat+'г';
+            document.getElementById('carbs-value').textContent=carbs+'г';
+            setTimeout(()=>{
+                document.getElementById('protein-bar').style.width='30%';
+                document.getElementById('fat-bar').style.width='30%';
+                document.getElementById('carbs-bar').style.width='40%';
+            },100);
+            const res = document.getElementById('results');
+            res.style.opacity='0'; res.style.transform='translateY(20px)';
+            setTimeout(()=>{res.style.transition='all .5s';res.style.opacity='1';res.style.transform='translateY(0)';},200);
+        }
+
+        // ---------- РЕЦЕПТЫ ----------
+        function initializeRecipes(){
+            const grid = document.getElementById('recipes-grid');
+            recipes.forEach(r=>grid.appendChild(createRecipeCard(r)));
+            document.querySelectorAll('.filter-btn').forEach(btn=>{
+                btn.addEventListener('click',function(){
+                    filterRecipes(this.dataset.filter);
+                    document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+        }
+        function createRecipeCard(r){
+            const card = document.createElement('div');
+            card.className='recipe-card'; card.dataset.category=r.category;
+            card.innerHTML=`
+                <img src="${r.image}" alt="${r.title}" class="recipe-image">
+                <div class="recipe-content">
+                    <h3 class="recipe-title">${r.title}</h3>
+                    <p class="recipe-description">${r.description}</p>
+                    <div class="recipe-meta">
+                        <span class="recipe-time">⏱️ ${r.time}</span>
+                        <span class="recipe-calories">🔥 ${r.calories}</span>
+                    </div>
+                </div>`;
+            return card;
+        }
+        function filterRecipes(cat){
+            document.querySelectorAll('.recipe-card').forEach(c=>{
+                c.classList.toggle('hidden', cat!=='all' && c.dataset.category!==cat);
+            });
+        }
+
+        // ---------- КАРУСЕЛЬ СОВЕТОВ ----------
+        let currentTip = 0;
+        function initializeCarousel(){
+            const tips = document.querySelectorAll('.tip-card');
+            const indicators = document.querySelectorAll('.indicator');
+            setInterval(()=>changeTip(1),5000);
+            window.changeTip = d=>{
+                tips[currentTip].classList.remove('active'); tips[currentTip].classList.add('prev');
+                indicators[currentTip].classList.remove('active');
+                currentTip = (currentTip+d+tips.length)%tips.length;
+                tips[currentTip].classList.remove('prev'); tips[currentTip].classList.add('active');
+                indicators[currentTip].classList.add('active');
+            };
+            window.showTip = i=>{
+                tips[currentTip].classList.remove('active'); tips[currentTip].classList.add('prev');
+                indicators[currentTip].classList.remove('active');
+                currentTip=i;
+                tips[currentTip].classList.remove('prev'); tips[currentTip].classList.add('active');
+                indicators[currentTip].classList.add('active');
+            };
+        }
+
+        // ---------- ТРЕКЕР ПРИВЫЧЕК ----------
+        function initializeHabits(){
+            document.querySelectorAll('.habit-checkbox').forEach(ch=>{
+                ch.addEventListener('change',()=>{
+                    const h = ch.dataset.habit;
+                    updateHabitProgress(h,ch.checked);
+                });
+            });
+        }
+        function updateHabitProgress(h,checked){
+            const bar = document.getElementById(h+'-progress');
+            const text = document.getElementById(h+'-text');
+            const unit = {water:'стаканов',vegetables:'порций',exercise:'мин',sleep:'ч',mindful:'раз'}[h];
+            if(checked){
+                habitProgress[h]=habitTargets[h];
+                bar.style.width='100%';
+                text.textContent=`${habitTargets[h]}/${habitTargets[h]} ${unit}`;
+            }else{
+                habitProgress[h]=0;
+                bar.style.width='0%';
+                text.textContent=`0/${habitTargets[h]} ${unit}`;
+            }
+            updateOverallProgress();
+            saveHabitData();
+        }
+        function updateOverallProgress(){
+            const total = Object.values(habitProgress).reduce((a,b)=>a+b,0);
+            const max = Object.values(habitTargets).reduce((a,b)=>a+b,0);
+            const pct = Math.round(total/max*100);
+            const circle = document.getElementById('overall-progress-fill');
+            const circumference = 2*Math.PI*50;
+            circle.style.strokeDashoffset = circumference - (pct/100)*circumference;
+            document.getElementById('overall-percentage').textContent=pct+'%';
+        }
+        function saveHabitData(){localStorage.setItem('habitProgress',JSON.stringify(habitProgress));}
+        function loadHabitData(){
+            const saved = localStorage.getItem('habitProgress');
+            if(saved){
+                habitProgress=JSON.parse(saved);
+                Object.keys(habitProgress).forEach(h=>{
+                    if(habitProgress[h]>0){
+                        document.querySelector(`[data-habit="${h}"]`).checked=true;
+                        const bar = document.getElementById(h+'-progress');
+                        const text = document.getElementById(h+'-text');
+                        const unit = {water:'стаканов',vegetables:'порций',exercise:'мин',sleep:'ч',mindful:'раз'}[h];
+                        bar.style.width='100%';
+                        text.textContent=`${habitTargets[h]}/${habitTargets[h]} ${unit}`;
+                    }
+                });
+                updateOverallProgress();
+            }
+        }
+
+        // ---------- АНИМАЦИЯ ПРИ СКРОЛЛЕ ----------
+        function initScrollAnimations(){
+            const obs = new IntersectionObserver((entries)=>{
+                entries.forEach(e=>{
+                    if(e.isIntersecting){
+                        e.target.style.opacity='1';
+                        e.target.style.transform='translateY(0)';
+                    }
+                });
+            },{threshold:.1,rootMargin:'0px 0px -50px 0px'});
+            document.querySelectorAll('.principle-card,.recipe-card,.habit-item').forEach(el=>{
+                el.style.opacity='0'; el.style.transform='translateY(20px)';
+                el.style.transition='all .6s ease'; obs.observe(el);
+            });
+        }
+    </script>
+</body>
+</html>
